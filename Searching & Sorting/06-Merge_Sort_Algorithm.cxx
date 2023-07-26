@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 
 // Merge two sorted subarrays into a single sorted subarray.
 void merge(int* arr, int s, int e) {
@@ -55,31 +56,30 @@ void mergeSort(int* arr, int s, int e) {
     }
 
     int mid = s + (e - s) / 2;
-
-    // Sort the left subarray
     mergeSort(arr, s, mid);
-
-    // Sort the right subarray
     mergeSort(arr, mid + 1, e);
 
-    // Merge the sorted subarrays
     merge(arr, s, e);
 }
 
-int main() {
+// Unit tests for merge sort
+void unitTests() {
     int arr[] = {22, 2, 1, 2, 14, 2, 56, 53, 6, 78};
     int size = sizeof(arr) / sizeof(arr[0]);
 
-    // Perform merge sort on the array
     mergeSort(arr, 0, size - 1);
 
-    std::cout << "The sorted array is:" << std::endl;
-
-    // Print the sorted array
-    for (auto x : arr) {
-        std::cout << x << " ";
+    // Check if the array is sorted
+    for (int i = 1; i < size; i++) {
+        assert(arr[i - 1] <= arr[i]);
     }
-    std::cout << std::endl;
+}
+
+int main() {
+    // Run the unit tests
+    unitTests();
+
+    std::cout << "Merge sort unit tests passed successfully." << std::endl;
 
     return 0;
 }
